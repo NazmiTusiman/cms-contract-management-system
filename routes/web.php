@@ -1,0 +1,51 @@
+<?php
+
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', [DashboardController::class, 'index']) 
+->middleware(['auth'])
+->name('dashboard');
+
+Route::get('/contracts', fn()=>view('contracts.index'))
+->middleware(['auth'])
+->name('contracts.index');
+
+Route::get('/superadmin', fn () => view('dashboard.superadmin'))
+    ->middleware(['auth', 'role:superadmin'])
+    ->name('superadmin.dashboard');
+
+Route::get('/admin', fn () => view('dashboard.admin'))
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.dashboard');
+
+Route::get('/user', function () {
+    return view('dashboard.user', [
+        'jumlahKontrak' => 0,
+        'nilaiKontrak' => 0,
+        'tamatTempoh' => 0,
+    ]);
+})->middleware(['auth', 'role:user'])->name('user.dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/contracts',[ContractController::class, 'index'])->name('contracts.index');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'role:admin,superadmin'])->group(function() {
+    Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
+    Route::post('/contracts', [ContractController::class, 'store'])->name('contracts.store');
+});
+
+
+
+require __DIR__.'/auth.php';
