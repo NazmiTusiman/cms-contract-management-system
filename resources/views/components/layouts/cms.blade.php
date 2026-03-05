@@ -3,10 +3,12 @@
 
     <div class="min-h-screen flex bg-gray-100">
         <!-- Sidebar -->
-        <aside class="w-64 bg-blue-500 border-r flex flex-col justify-between">
+        <aside class="w-64 bg-sky-700 border-r flex flex-col justify-between">
             <div>
             <div class="p-4 text-x2 font-bold">CMS</div>
-
+                @php
+                    $roleId = (Int) (auth()->user()->role_id ?? 0);
+                @endphp
             <nav class="px-2 space-y-1">
                 <a href="{{ route('dashboard') }}"
                    class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('dashboard') ? 'bg-gray-100 font-semibold' : '' }}">
@@ -17,6 +19,13 @@
                    class="blocks px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('contracts.*') ? 'bg-gray-100 font-semibold' : '' }}">
                     Kontrak
                 </a>
+
+                @if ($roleId == 1)
+                <a href="{{route('users.index')}}"
+                class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('contracts.*') ? 'bg-gray-100 font-semibold' : ''}}">
+                Pengguna
+                </a>
+                @endif
             </nav>
         </div>
 

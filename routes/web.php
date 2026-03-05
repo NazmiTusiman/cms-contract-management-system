@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,16 @@ Route::middleware(['auth', 'role:admin,superadmin'])->group(function() {
     Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
     Route::post('/contracts', [ContractController::class, 'store'])->name('contracts.store');
 });
+
+Route::middleware(['auth', 'role:superadmin'])->group(function() {
+    Route::get('/users', function(){
+        return view('users.index');
+    })->name('users.index');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+});
+
+
 
 
 
