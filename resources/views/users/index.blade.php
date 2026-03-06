@@ -14,6 +14,61 @@
                     + Pengguna
                 </button>
             @endif
+
+            <div x-show="open" x-cloak class="fixed inset-0 z-50 flex item-center justify-center">
+                <div class="fixed inset-0 bg-black/50" @click="open=false"></div>
+                <div class="relative bg-white w-full max-w-xl rounded-lg shadow-lg p-6">
+
+                    <div class="flex justify-between item-center mb-4">
+                        <h3 class="text-lg font-semibold">Tambah Pengguna</h3>
+                        <button @click="open=false" class="text-gray-500 hover:text-gray-900">X</button>
+                    </div>
+
+                    <form method="POST" action="{{route('users.store')}}"></form>
+                    @csrf
+
+                    <div class="space-y-4">
+                        
+                        <div>
+                            <label class="block text-sm mb-1">Nama</label>
+                            <input  name="full_name" type="text" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm mb-1">NRIC</label>
+                            <input  name="mykad" class="w-full border rounded px-3 py-2" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm mb-1">Emel</label>
+                            <input  name="email" type="email" class="w-full border rounded px-3 py-2" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm mb-1">Role</label>
+                            <select name="role_id" class="w-full border rounded px-3 py-2">
+                                <option value="1">Super Admin</option>
+                                <option value="2">Admin</option>
+                                <option value="3">User</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-end gap-2 pt-2">
+                            <button type="submit"
+                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-900">
+                                Simpan
+                            </button>
+                        </div>
+
+                        <button type="button"
+                            @click="open=false"
+                            class="px-4 py-2 border rounded">
+                            Batal
+                        </button>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
