@@ -53,6 +53,7 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
     })->name('users.index');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
 });
 
 

@@ -27,7 +27,7 @@
                         <button type="button" class="text-gray-500 hover:text-gray-900" @click="open=false">X</button>
                     </div>
 
-                    <form method="POST" action="{{route('contracts.store')}}">
+                    <form method="POST" action="{{route('contracts.store')}}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="space-y-4">
@@ -58,6 +58,11 @@
                             <input name="bond_value" type="number" step="0.01" class="w-full border rounded px-3 py-2" required>
                         </div>
 
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Lampiran</label>
+                            <input type="file" name="attachment" class="w-full border rounded px-3 py-2" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg">
+                        </div>
+
                         <div class="flex justify-end gap-2 pt-2">
                             <button type="submit" class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">
                                 Simpan
@@ -82,6 +87,7 @@
                         <th class="p-3 border-b">Tarikh Mula</th>
                         <th class="p-3 border-b">Tarikh Tamat</th>
                         <th class="p-3 border-b">Status</th>
+                        <th class="p-3 border-b">Lampiran</th>
                         <th class="p-3 border-b">Tindakan</th>
                     </tr>
                 </thead>

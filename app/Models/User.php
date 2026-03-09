@@ -21,18 +21,20 @@ class User extends Authenticatable
     protected $table = 'tbl_users';
 
     protected $primaryKey = 'id';
-
     public $incrementing = true;
     protected $keyType = 'int';
 
     protected $fillable = [
         'mykad',
         'username',
+        'full_name',
         'email',
         'password',
-        'role_id',
         'division_id',
         'branch_id',
+        'role_id',
+        'status',
+        'phone',
     ];
 
     /**

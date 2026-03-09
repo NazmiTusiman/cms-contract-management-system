@@ -3,7 +3,7 @@
         <h2 class="text-lg font-semibold">Senarai Pengguna</h2>
     </div>
 
-    <div x-data="{open=false}" class="bg-white border rounded p-6">
+    <div x-data="{open: false}" class="bg-white border rounded p-6">
         <div class="flex justify-end mb-4">
             @php
                 $roleId = (int)(auth()->user()->role_id ?? 0);
@@ -43,6 +43,7 @@
                             <label class="block text-sm mb-1">Emel</label>
                             <input  name="email" type="email" class="w-full border rounded px-3 py-2" required>
                         </div>
+                        
 
                         <div>
                             <label class="block text-sm mb-1">Role</label>
@@ -70,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
@@ -103,7 +104,7 @@
                         <td class="p-3 border-b">{{$u->email ?? '-'}}</td>
                         <td class="p-3 border-b">{{$roleName}}</td>
                         <td class="p-3 border-b">
-                            <span class="px-2 py-1 rounded text-xs border">
+                            <span class="px-2 py-1 rounded text-xs border {{$u->status === 'active' ? 'bg-green-100 text-black-200 border-black-300' : 'bg-red-100 text-white-200 border-white-200'}}">
                                 {{$u->status ?? '-'}}
                             </span>
                         </td>
@@ -116,6 +117,6 @@
                 @endforelse
             </tbody>
         </table>
-
+    </div>
     </div>
 </x-layouts.cms>
