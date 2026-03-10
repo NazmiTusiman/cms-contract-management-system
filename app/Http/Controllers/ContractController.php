@@ -53,7 +53,7 @@ class ContractController extends Controller
         'created_by'        => $user->id,
 
         'created_at'        => now(),
-        'update_at'         => now(),
+        'updated_at'         => now(),
     ]);
 
     return redirect()->route('contracts.index')->with('success','Kontrak berjaya ditambah');

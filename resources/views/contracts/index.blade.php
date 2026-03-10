@@ -81,14 +81,14 @@
             <table class="min-w-full text-sm">
                 <thead>
                     <tr>
-                        <th class="p-3 border-b">No</th>
-                        <th class="p-3 border-b">Nama Kontrak</th>
-                        <th class="p-3 border-b">Harga</th>
-                        <th class="p-3 border-b">Tarikh Mula</th>
-                        <th class="p-3 border-b">Tarikh Tamat</th>
-                        <th class="p-3 border-b">Status</th>
-                        <th class="p-3 border-b">Lampiran</th>
-                        <th class="p-3 border-b">Tindakan</th>
+                        <th class="p-3 border-b text-left">No</th>
+                        <th class="p-3 border-b text-left">Nama Kontrak</th>
+                        <th class="p-3 border-b text-left">Harga</th>
+                        <th class="p-3 border-b text-left">Tarikh Mula</th>
+                        <th class="p-3 border-b text-left">Tarikh Tamat</th>
+                        <th class="p-3 border-b text-left">Status</th>
+                        <th class="p-3 border-b text-left">Lampiran</th>
+                        <th class="p-3 border-b text-left">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,10 +101,26 @@
                             <td class="p-3 border-b">{{$c->start_date}}</td>
                             <td class="p-3 border-b">{{$c->end_date}}</td>
                             <td class="p-3 border-b">{{$c->status ?? '-'}}</td>
+                            <td class="p-3 border-b">{{$c->attachment ?? '-'}}</td>
+                            <td class="p-3 border-b">
+                                @php
+                                    $roleId = (int)(auth()->user()->role_id ?? 0)
+                                @endphp
+
+                                <div class="flex items-center gap-3">
+                                    {{--Download available for everyone--}}
+                                    @if ($c-> attachment)
+                                        <a href="{{ asset('storage/'.$c->attachment)}}"
+                                            class="text-blue-200 hover:text-blue-600" 
+                                            title="Download">
+                                        </a>    
+                                    @endif
+                                </div>
+                            </td>
                             </tr>                        
                     @empty
                         <tr>
-                            <td class="p-3" colspan="7">Tiada Rekod Kontrak</td>
+                            <td class="p-3" colspan="8">Tiada Rekod Kontrak</td>
                         </tr>
                     @endforelse
                 </tbody>
