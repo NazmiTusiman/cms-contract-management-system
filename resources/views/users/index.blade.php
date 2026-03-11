@@ -24,7 +24,7 @@
                         <button @click="open=false" class="text-gray-500 hover:text-gray-900">X</button>
                     </div>
 
-                    <form method="POST" action="{{route('users.store')}}"></form>
+                    <form method="POST" action="{{route('users.store')}}">
                     @csrf
 
                     <div class="space-y-4">
@@ -33,7 +33,17 @@
                             <label class="block text-sm mb-1">Nama</label>
                             <input  name="full_name" type="text" class="w-full border rounded px-3 py-2" required>
                         </div>
-                        
+
+                        <div>
+                            <label class="block text-sm mb-1">Nama Pengguna</label>
+                            <input  name="username" type="text" class="w-full border rounded px-3 py-2" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm mb-1">No.Tel</label>
+                            <input  name="phone" class="w-full border rounded px-3 py-2" required>
+                        </div>
+
                         <div>
                             <label class="block text-sm mb-1">NRIC</label>
                             <input  name="mykad" class="w-full border rounded px-3 py-2" required>
@@ -56,18 +66,21 @@
 
                         <div class="flex justify-end gap-2 pt-2">
                             <button type="submit"
-                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-900">
+                            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-800">
                                 Simpan
                             </button>
-                        </div>
 
-                        <button type="button"
+                            <button type="button"
                             @click="open=false"
-                            class="px-4 py-2 border rounded">
+                            class="px-4 py-2 bg-red-500 border rounded hover:bg-red-800">
                             Batal
                         </button>
+                        </div>
+
+                        
 
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -84,6 +97,7 @@
                     <th class="p-3 border-b text-left">Jawatan</th>
                     <th class="p-3 border-b text-left">Status</th>
                     <th class="p-3 border-b text-left">No.Tel</th>
+                    <th class="p-3 border-b text-left">Tindakan</th>
                 </tr>
             </thead>
 
@@ -108,7 +122,26 @@
                                 {{$u->status ?? '-'}}
                             </span>
                         </td>
-                        <td class="p-3 border-b">{{$u->phone ?? '-'}}</td>
+                        <td class="p-3 border-b">+ 60 {{$u->phone ?? '-'}}</td>
+                        <td class="p-3 border-b text-center">
+                            @php
+                                $roleId = (int)(auth()->user()->role_id ?? 0);
+                            @endphp
+
+                            @if($roleId == 1)
+                                <form method="POST" action="{{route('user.toggle-status', $u->id)}}">
+                                    @csrf
+
+                                    <button type="submit"
+                                    class="bg-green-200 px-3 py-1 text-xs border rounded" 
+                                    {{$u->status === 'active' ? 'bg-red-500' : 'bg-green-500 text-white'}}>
+                                    
+                                    {{$u->status ==='active' ? 'Deactivate' : 'Activate'}}
+
+                                    </button>
+                                </form>
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>

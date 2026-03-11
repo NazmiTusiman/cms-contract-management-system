@@ -16,7 +16,7 @@
                 </a>
 
                 <a href="{{ route('contracts.index') }}"
-                   class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('contracts.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                   class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('contracts.index') ? 'bg-gray-100 font-semibold' : '' }}">
                     Kontrak
                 </a>
 

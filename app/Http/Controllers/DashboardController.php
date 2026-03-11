@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Contract;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
     {
@@ -11,9 +13,9 @@ class DashboardController extends Controller
         {
             $user = $request->user();
 
-            $jumlahKontrak = 0;
-            $nilaiKontrak = 0;
-            $tamatTempoh = 0;
+            $jumlahKontrak = Contract::count();
+            $nilaiKontrak = Contract::sum('contract_value');
+            $tamatTempoh = Contract::where('end_date', '<', Carbon::today())->count();
 
             if((int) $user->role_id == 3){
                 return view('dashboard.user', compact('jumlahKontrak','nilaiKontrak','tamatTempoh'));
