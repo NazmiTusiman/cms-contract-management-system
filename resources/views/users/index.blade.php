@@ -85,6 +85,17 @@
             </div>
         </div>
     
+        @if (session('error'))
+            <div class="bg-red-100 border text-black-200 px-4 py-3 rounded mb-1">
+                {{session('error')}}    
+            </div>        
+        @endif
+
+        @if (session('success'))
+        <div class="bg-red-100 border text-black-200 px-4 py-3 rounded mb-1">
+            {{session('success')}}    
+        </div>            
+        @endif
 
     <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
@@ -122,7 +133,7 @@
                                 {{$u->status ?? '-'}}
                             </span>
                         </td>
-                        <td class="p-3 border-b">+ 60 {{$u->phone ?? '-'}}</td>
+                        <td class="p-3 border-b">+60 {{$u->phone ?? '-'}}</td>
                         <td class="p-3 border-b text-center">
                             @php
                                 $roleId = (int)(auth()->user()->role_id ?? 0);
@@ -133,10 +144,31 @@
                                     @csrf
 
                                     <button type="submit"
-                                    class="bg-green-200 px-3 py-1 text-xs border rounded" 
-                                    {{$u->status === 'active' ? 'bg-red-500' : 'bg-green-500 text-white'}}>
+                                    class="bg-green-200 px-3 py-1 text-xs border rounded
+                                    {{$u->status === 'active' ? 'bg-green-500' : 'bg-red-500'}}" >
                                     
-                                    {{$u->status ==='active' ? 'Deactivate' : 'Activate'}}
+                                    @if($u->status === 'active')
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                            fill="none" 
+                                            viewBox="0 0 24 24" 
+                                            stroke-width="1.5" 
+                                            stroke="currentColor" 
+                                            class="size-6">
+                                        <path stroke-linecap="round" 
+                                            stroke-linejoin="round" 
+                                            d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+                                    @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                        fill="none" viewBox="0 0 24 24" 
+                                        stroke-width="1.5" 
+                                        stroke="currentColor" 
+                                        class="size-6">
+                                        <path stroke-linecap="round" 
+                                            stroke-linejoin="round" 
+                                            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    @endif
 
                                     </button>
                                 </form>

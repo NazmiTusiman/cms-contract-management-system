@@ -47,14 +47,16 @@ class UserController extends Controller
 
     public function toggleStatus($id){
         $user = User::findOrFail($id);
-
+        
+        if($user->id == Auth::id()){
+            return back()->with('error', 'Anda tidak boleh menyahaktifkan akaun anda sendiri');
+        }
+        
         $user->status = $user->status === 'active' ? 'inactive' : 'active';
 
         $user->save();
 
-        if($user->id == Auth::id()){
-            return back()->with('error', 'Anda tidak boleh menyahaktifkan akaun anda sendiri');
-        }
+       
 
         return redirect()->back()->with('success', 'Status pengguna telah dikemaskini');
     }
