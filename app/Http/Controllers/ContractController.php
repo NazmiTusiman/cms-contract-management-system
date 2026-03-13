@@ -59,4 +59,10 @@ class ContractController extends Controller
     return redirect()->route('contracts.index')->with('success','Kontrak berjaya ditambah');
     }
 
+    /*public function edit($id){
+        $contracts = Contract::findOrFail($id);
+
+        return view('contracts.edit', compact('contact'));
+    }*/
+
 }
