@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin,superadmin'])->group(function() {
     Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
     Route::post('/contracts', [ContractController::class, 'store'])->name('contracts.store');
+
+    Route::post('/payments/store', [PaymentController::class, 'store'])->name('payment.store');
+   // Route::get('/contract/{id}/edit', [ContractController::class,'edit']->name('contracts.edit'));
+   // Route::post('/contract/{id}/update', [ContractController::class, 'update']->name('contracts.update'));
 });
 
 Route::middleware(['auth', 'role:superadmin'])->group(function() {

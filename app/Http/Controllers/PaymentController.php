@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\ContracyPayment;
+use App\Models\ContractPayment;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -14,8 +15,8 @@ class PaymentController extends Controller
             'contract_id'       =>$request->contract_id,
             'payment_id'        =>$request->payment_id,
             'payment_amount'    =>$request->payment_amount,
-            'remakrs'           =>$request->remarks,
-            'created_by'        =>$request->auth()->id()
+            'remarks'           =>$request->remarks,
+            'created_by'        => Auth::id()
         ]);
 
         return back()->with('success','Bayaran berjaya direkodkan');
