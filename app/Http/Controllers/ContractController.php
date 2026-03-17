@@ -23,6 +23,7 @@ class ContractController extends Controller
 
     public function store(Request $request){
         $request->validate([
+            'number_reference'  =>['required', 'string', 'max:150'],
             'contract_name'     =>['required', 'string','max:150'],
             'contract_value'    =>['required', 'numeric','min:0'],
             'start_date'        =>['required', 'date'],
@@ -41,12 +42,13 @@ class ContractController extends Controller
     }
     
     Contract::create([
+        'number_reference'  =>$request->number_reference,
         'contract_name'     => $request->contract_name,
         'contract_value'    => $request->contract_value,
         'start_date'        => $request->start_date,
         'end_date'          => $request->end_date,
         'bond_value'        => $request->bond_value,
-        'attachment'        => $request->attachment,
+        'attachment'        => $attachmentPath,
 
         'division_id'       => $user->division_id,
         'branch_id'         => $user->branch_id,
