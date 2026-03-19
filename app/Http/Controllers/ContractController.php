@@ -67,4 +67,17 @@ class ContractController extends Controller
         return view('contracts.edit', compact('contact'));
     }*/
 
+    public function destroy($id){
+        $contracts = Contract::findOrFail($id);
+
+        if($contracts->attachment && Storage::disk('public')->exists($contracts->attachment)){
+            Storage::disk('public')->delete($contracts->attachment);
+        }
+
+        $contracts->delete();
+
+        return back()->with('success', 'Kontrak berjaya dipadam');
+
+    }
+
 }

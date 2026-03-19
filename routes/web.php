@@ -61,6 +61,9 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
     Route::post('/users', [UserController::class, 'store'])->name('users.store');    
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('user.toggle-status');
 
+    Route::delete('/contract/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
 });
 
 

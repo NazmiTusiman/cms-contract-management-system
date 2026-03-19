@@ -60,4 +60,16 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Status pengguna telah dikemaskini');
     }
+
+    public function destroy($id){
+        $user = User::findOrFail($id);
+
+        if($user->id == Auth::id()){
+            return back()->with('error', 'Anda tidak dibenarkan memadam akaun sendiri');
+        }
+
+        $user->delete();
+        
+        return back()->with('success', 'Pengguna berjaya dipadam');
+    }
 }
