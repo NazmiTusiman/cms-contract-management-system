@@ -109,21 +109,6 @@
                             <td class="p-3 border-b">{{$c->number_reference ?? '-'}}</td>
                             <td class="p-3 border-b">
                                 @php
-                                    $roleId = (int)(auth()->user()->role_id ?? 0)
-                                @endphp
-
-                                <div class="flex items-center gap-3">
-                                    {{--Download available for everyone--}}
-                                    @if ($c-> attachment)
-                                        <a href="{{ asset('storage/'.$c->attachment)}}"
-                                            class="text-blue-200 hover:text-blue-600" 
-                                            title="Download">
-                                        </a>    
-                                    @endif
-                                </div>
-                            
-                            
-                                @php
                                     $roleId = (int) (Auth::user()->role_id ?? 0);
                                 @endphp
 
@@ -134,16 +119,16 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" 
                                             fill="none" 
                                             viewBox="0 0 24 24" 
-                                            stroke-width="1.5" 
+                                            stroke-width="1" 
                                             stroke="currentColor" 
                                             class="w-4 h-4">
-                                            <path strokeLinecap="round" 
-                                            strokeLinejoin="round" 
+                                            <path stroke-linecap="round" 
+                                            stroke-linejoin="round" 
                                             d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                         </svg>
                                     </a>
-                                    @else
-                                    <div></div> 
+                                    @else 
+                                    <div class="w-8 h-8"></div>
                                     @endif
 
                                     @if(in_array($roleId,[1,2]))
@@ -152,15 +137,40 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" 
                                                 fill="none" 
                                                 viewBox="0 0 24 24" 
-                                                stroke-width={1.5} 
+                                                stroke-width="1.5" 
                                                 stroke="currentColor" 
                                                 class="w-4 h-4">
-                                            <path strokeLinecap="round" 
-                                                strokeLinejoin="round"
+                                            <path stroke-linecap="round" 
+                                                stroke-linejoin="round"
                                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                        </button>
+                                    @else
+                                       <div class="w-8 h-8"></div>
                                     @endif
+
+                                    @if ($roleId == 1)
+                                    <div>
+                                        <form method="POST" action="{{route('contracts.destroy', $c->contract_id)}}" onsubmit="return confirm('Padam kontrak ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-50 border rounded p-2 flex justify-center hover:bg-red-100" title="Padam">
+                                                <svg xlmns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox=" 0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                class="w-4 h-4 text-red-400">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.166L18.16 19.673A2.25 2.25 0 0 1 15.916 21H8.084a2.25 2.25 0 0 1-2.244-1.327L4.772 5.79m14.456 0A48.108 48.108 0 0 0 15.75 5.25m-6.75 0a48.11 48.11 0 0 1-3.478.54m7.5-2.25h-3a1.125 1.125 0 0 0-1.125 1.125V5.25h5.25v-.585A1.125 1.125 0 0 0 13.5 3.75Z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                        @else
+                                        <div class="w-8 h-8"></div>
+                                    @endif
+
                                         <div x-show="openPayment" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
                                             <div class="absolute inset-0 bg-black/50" @click="OpenPayment =false"></div>
                                                 <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
@@ -210,25 +220,6 @@
 
                                             </div>
                                         </div>
-                                        
-                                        @if ($roleId == 1)
-                                        <form method="POST" action="{{route('contracts.destroy', $c->contract_id)}}" onsubmit="return confirm('Padam kontrak ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-50 border rounded p-2 flex justify-center hover:bg-red-100" title="Padam">
-                                                <svg xlmns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox=" 0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                class="w-4 h-4 text-red-400">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.166L18.16 19.673A2.25 2.25 0 0 1 15.916 21H8.084a2.25 2.25 0 0 1-2.244-1.327L4.772 5.79m14.456 0A48.108 48.108 0 0 0 15.75 5.25m-6.75 0a48.11 48.11 0 0 1-3.478.54m7.5-2.25h-3a1.125 1.125 0 0 0-1.125 1.125V5.25h5.25v-.585A1.125 1.125 0 0 0 13.5 3.75Z"/>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                        @endif
-                                    
                                 </div>
                             </td>
                             </tr>                        
