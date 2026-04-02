@@ -202,5 +202,22 @@
             </tbody>
         </table>
     </div>
+
+    <div class="mt-8 flex flex-col items-center gap-4">
+        <div class="flex gap-4 w-full max-w-2xl">
+            <a href="{{---route('users.application')---}}" class="flex-1 bg-blue-200 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
+                Permohonan Daftar Pengguna
+            </a>
+
+            <a href="{{---route('users.archives')---}}" class="flex-1 bg-red-200 hover:bg-red-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
+                Bekas Pengguna
+            </a>
+        </div>
+
+        
+            <a href="{{---route('branch-department.configure')---}}" class="w-full max-w-sm bg-blue-400 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
+                Cawangan & Bahagian
+            </a>
+    </div>
     </div>
 </x-layouts.cms>
