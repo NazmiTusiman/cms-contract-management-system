@@ -57,10 +57,16 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
         return view('users.index');
     })->name('users.index');
 
+    //Route::get('/settings/branch-dept',[SettingController::class, 'index'])->name('settings.branch-department');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    //Route::post('/department', [SettingController::class, 'store'])->name('department.store');
+    //Route::post('/branch', [SettingController::class, 'store'])->name('branch.store');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');    
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('user.toggle-status');
 
+    //Route::delete('department/{id}', [SettingController::class, 'destroy'])->name('department.destroy');
+    //Route::delete('/branch/{id}', [SettingController::class, 'destroy'])->name('branch.destroy');
     Route::delete('/contract/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
