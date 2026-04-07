@@ -5,6 +5,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,18 +58,18 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
         return view('users.index');
     })->name('users.index');
 
-    //Route::get('/settings/branch-dept',[SettingController::class, 'index'])->name('settings.branch-department');
+    Route::get('/setup/branch-department',[SettingController::class, 'index'])->name('setup.branch-department');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-    //Route::post('/department', [SettingController::class, 'store'])->name('department.store');
-    //Route::post('/branch', [SettingController::class, 'store'])->name('branch.store');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');    
+    Route::post('/department', [SettingController::class, 'storeDepartment'])->name('department.store');
+    Route::post('/branch', [SettingController::class, 'storeBranch'])->name('branch.store');
+    Route::post('/users', [UserController::class, 'storeUsers'])->name('users.store');    
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('user.toggle-status');
 
-    //Route::delete('department/{id}', [SettingController::class, 'destroy'])->name('department.destroy');
-    //Route::delete('/branch/{id}', [SettingController::class, 'destroy'])->name('branch.destroy');
-    Route::delete('/contract/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('department/{id}', [SettingController::class, 'destroyDepartment'])->name('department.destroy');
+    Route::delete('/branch/{id}', [SettingController::class, 'destroyBranch'])->name('branch.destroy');
+    Route::delete('/contract/{id}', [ContractController::class, 'destroyContract'])->name('contracts.destroy');
+    Route::delete('/users/{id}', [UserController::class, 'destroyUser'])->name('users.destroy');
 
 });
 

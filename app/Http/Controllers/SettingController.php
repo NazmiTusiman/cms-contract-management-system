@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Division;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,11 +12,11 @@ class SettingController extends Controller
 {
     public function index ()
     {
-        $departments = DB::table('tbl_division')->orderBy('division_name')->get();
+        $departments = Division::orderBy('division_name')->get();
 
-        $branch = DB::table('tbl_branch')->orderBy('branch_name')->get();
+        $branch = Branch::orderBy('branch_name')->get();
 
-        return view('settings.branch-department', compact('departments','branches'));
+        return view('setup.branch-department', compact('departments','branch'));
     }
 
     public function storeDepartment(Request $request)

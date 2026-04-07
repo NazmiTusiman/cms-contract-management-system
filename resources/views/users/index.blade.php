@@ -215,7 +215,7 @@
         </div>
 
         
-            <a href="{{---route('branch-department.configure')---}}" class="w-full max-w-sm bg-blue-400 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
+            <a href="{{route('setup.branch-department')}}" class="w-full max-w-sm bg-blue-400 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
                 Cawangan & Bahagian
             </a>
     </div>
