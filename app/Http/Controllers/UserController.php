@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Branch;
+use App\Models\Division;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +19,10 @@ class UserController extends Controller
         ->orderBy('full_name')
         ->get();
 
-        return view('users.index', compact('users'));
+        $branch = Branch::orderBy('branch_name')->get();
+        $departments = Division::orderBy('division_name')->get();
+
+        return view('users.index', compact('users', 'branch', 'departments'));
     }
 
     public function store(Request $request)
@@ -72,4 +77,5 @@ class UserController extends Controller
         
         return back()->with('success', 'Pengguna berjaya dipadam');
     }
+
 }
