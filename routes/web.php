@@ -63,13 +63,13 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
 
     Route::post('/department', [SettingController::class, 'storeDepartment'])->name('department.store');
     Route::post('/branch', [SettingController::class, 'storeBranch'])->name('branch.store');
-    Route::post('/users', [UserController::class, 'storeUsers'])->name('users.store');    
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');    
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('user.toggle-status');
 
     Route::delete('department/{id}', [SettingController::class, 'destroyDepartment'])->name('department.destroy');
     Route::delete('/branch/{id}', [SettingController::class, 'destroyBranch'])->name('branch.destroy');
-    Route::delete('/contract/{id}', [ContractController::class, 'destroyContract'])->name('contracts.destroy');
-    Route::delete('/users/{id}', [UserController::class, 'destroyUser'])->name('users.destroy');
+    Route::delete('/contract/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 });
 

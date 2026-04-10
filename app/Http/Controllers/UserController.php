@@ -20,7 +20,7 @@ class UserController extends Controller
         ->get();
 
         $branch = Branch::orderBy('branch_name')->get();
-        $departments = Division::orderBy('division_name')->get();
+        $departments = Division::wherenotNull('division_code')->orderBy('division_name')->get();
 
         return view('users.index', compact('users', 'branch', 'departments'));
     }

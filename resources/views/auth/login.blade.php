@@ -7,7 +7,7 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="mykad" :value="__('NO MyKad')" />
+            <x-input-label for="mykad" :value="__('No. MyKad')" />
             <x-text-input id="mykad" 
             class="block mt-1 w-full" 
             type="text" name="mykad"

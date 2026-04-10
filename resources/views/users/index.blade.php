@@ -3,7 +3,7 @@
         <h2 class="text-lg font-semibold">Senarai Pengguna</h2>
     </div>
 
-    <div x-data="{open: false}" class="bg-white border rounded p-6">
+    <div x-data="{open: false, selectedBranch: '' }" class="bg-white border rounded p-6">
         <div class="flex justify-end mb-4">
             @php
                 $roleId = (int)(auth()->user()->role_id ?? 0);
@@ -17,7 +17,7 @@
 
             <div x-show="open" x-cloak class="fixed inset-0 z-50 flex item-center justify-center">
                 <div class="fixed inset-0 bg-black/50" @click="open=false"></div>
-                <div class="relative bg-white w-full max-w-xl rounded-lg shadow-lg p-6">
+                <div class="relative bg-white w-full max-w-xl rounded-lg shadow-lg p-6 z-10">
 
                     <div class="flex justify-between item-center mb-4">
                         <h3 class="text-lg font-semibold">Tambah Pengguna</h3>
@@ -35,7 +35,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm mb-1">Nama Pengguna</label>
+                            <label class="block text-sm mb-1">Nama Penggilan</label>
                             <input  name="username" type="text" class="w-full border rounded px-3 py-2" required>
                         </div>
 
@@ -61,6 +61,30 @@
                                 <option value="1">Super Admin</option>
                                 <option value="2">Admin</option>
                                 <option value="3">User</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm mb-1">Cawangan</label>
+                            <select name="branch_id" @change="selectedBranch = $event.target.options[$event.target.selectedIndex].dataset.name" class="w-full border rounded px-3 py-2" required>
+                                <option value="">Pilih Cawangan</option>
+                                @foreach ($branch as $b)
+                                    <option value="{{$b->branch_id}}" data-name="{{$b->branch_name}}">
+                                        {{$b->branch_name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div x-show="selectedBranch === 'JABATAN INSOLVENSI IBU PEJABAT'" x-cloak>
+                            <label class="block text-sm mb-1">Bahagian</label>
+                            <select name="division_name" class="w-full border rounded px-3 py-2">
+                                <option value="">Pilih Bahagian</option>
+                                @foreach ($departments as $d)
+                                <option value="{{$d->division_name}}"> 
+                                    {{$d->division_name}}
+                                </option>
+                                @endforeach
                             </select>
                         </div>
 
