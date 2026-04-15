@@ -6,12 +6,19 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\RequestRegisterationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/registeration-request',[RequestRegisterationController::class, 'create'])
+->name('registertaion.request');
+
+Route::post('/registeration-request',[RequestRegisterationController::class, 'store'])
+->name('registeration-request');
 
 Route::get('/dashboard', [DashboardController::class, 'index']) 
 ->middleware(['auth'])

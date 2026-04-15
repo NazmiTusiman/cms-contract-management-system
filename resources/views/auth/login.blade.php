@@ -47,5 +47,11 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div class="mt-6 text-center">
+            <a href="{{route('registeration.request')}}" 
+            class="inline-block w-full rounded-xl bg-blue-300 py-4 text-center font-semibold text-black shadow-md hover:bg-blue-400">
+        Permohonan daftar Pengguna</a>
+        </div>
     </form>
 </x-guest-layout>
