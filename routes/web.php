@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
@@ -16,6 +17,8 @@ Route::get('/', function () {
 
 Route::get('/registeration-request',[RequestRegisterationController::class, 'create'])
 ->name('registertaion.request');
+
+ Route::get('registration-request',[RequestRegisterationController::class, 'index'])->name('registration.request.index');
 
 Route::post('/registeration-request',[RequestRegisterationController::class, 'store'])
 ->name('registeration-request');
@@ -68,6 +71,8 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
     Route::get('/setup/branch-department',[SettingController::class, 'index'])->name('setup.branch-department');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
+    Route::post('registration-request/{id}/reject',[RegisteredUserController::class, 'reject'])->name('registration.request.reject');
+    Route::post('registration-request/{id}/approve', [RegisteredUserController::class,'approve'])->name('registration.request.approve');
     Route::post('/department', [SettingController::class, 'storeDepartment'])->name('department.store');
     Route::post('/branch', [SettingController::class, 'storeBranch'])->name('branch.store');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');    

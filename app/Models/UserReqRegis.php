@@ -16,6 +16,7 @@ class UserReqRegis extends Model
         'email',
         'num_phone',
         'type',
+        'request_status',
         'division_id',
         'branch_id',
         'remarks',
