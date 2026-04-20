@@ -1,43 +1,43 @@
 <x-guest-layout>
-    <div x-data="{userType:'{{old('type', 'internal')}}', selectedBranch:''}">
+    <div x-data="{type: '{{old('type', 'internal')}}', selectedBranch:''}">
         <h2 class="mb-6 text-2xl font-semibold text-center">Permohonan Daftar Pengguna</h2>
 
-        <form method="POST" action="{{route('registeration-request.store')}}" class="space-y-4">
+        <form method="POST" action="{{route('registration-request.store')}}" class="space-y-4">
             @csrf
 
             <div>
                 <x-input-label for="full_name" :value="__('Nama Penuh')"/>
-                <x-input type="text" name="full_name" id="full_name" class="block mt-1 w-full" :value="old('full_name')"required/>
+                <x-text-input type="text" name="full_name" id="full_name" class="block mt-1 w-full" :value="old('full_name')"required/>
                 <x-input-error :messages="$errors->get('full_name')" class="mt-2"/>
             </div>
 
             <div>
                 <x-input-label for="username" :value="__('Nama Pengguna')"/>
-                <x-input type="text" name="username" id="username" class="block mt-1 w-full" :value="old('username')" required/>
+                <x-text-input type="text" name="username" id="username" class="block mt-1 w-full" :value="old('username')" required/>
                 <x-input-error :messages="$errors->get('username')" class="mt-2"/>
             </div>
 
             <div>
                 <x-input-label for="mykad" :value="__('No. MyKad')"/>
-                <x-input name="mykad" id="mykad" class="block mt-1 w-full" :value="old('mykad')" required/>
+                <x-text-input name="mykad" id="mykad" class="block mt-1 w-full" :value="old('mykad')" required/>
                 <x-input-error :messages="$errors->get('mykad')" class="mt-2"/>
             </div>
 
             <div>
                 <x-input-label for="email" :value="__('Email')"/>
-                <x-input type="email" name="email" id="email" class="block mt-1 w-full" :value="old('email')" required/>
+                <x-text-input type="email" name="email" id="email" class="block mt-1 w-full" :value="old('email')" required/>
                 <x-input-error :messages="$errors->get('email')" class="mt-2"/>
             </div>
 
             <div>
                 <x-input-label for="num_phone" :value="__('No. Tel')"/>
-                <x-input name="num_phone" id="num_phone" class="block mt-1 w-full" :value="old('num_phone')" required/>
+                <x-text-input name="num_phone" id="num_phone" class="block mt-1 w-full" :value="old('num_phone')" required/>
                 <x-input-error :messages="$errors->get('num_phone')" class="mt-2"/>
             </div>
 
-            <div>
+            <div class="mt-4">
                 <x-input-label :value="__('Jenis Pengguna')"/>
-                <select name="type" x-model="type" class="block mt-1 w-full rounded-md border-gray-300" required>
+                <select name="type" x-model="type" class="block mt-1 w-full-rounded-md border-gray-300" required>
                     <option value="internal">Internal User</option>
                     <option value="external">External User</option>
                 </select>
@@ -46,14 +46,14 @@
             
             {{--Internal Function--}}
 
-            <div x-show="Type === 'internal'" x-cloak>
+            <div x-show="type === 'internal'" x-cloak>
                 <div class="mt-4">
                     <x-input-label :value="__('Cawangan')"/>
                     <select name="branch_id"
-                        @change="@selectedBranch = $event.target.option[$event.target.selectedIndex].dataset.name"
+                        @change="@selectedBranch = $event.target.options[$event.target.selectedIndex].dataset.name"
                         class="block mt-1 w-full-rounded-md border-gray-500">
                         <option value="">Pilih Cawangan</option>
-                        @foreach ($branch as $b)
+                        @foreach ($branches as $b)
                             <option value="{{ $b->branch_id }}" data-name="{{$b->branch_name}}">
                                 {{$b->branch_name}}
                             </option>

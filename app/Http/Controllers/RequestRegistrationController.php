@@ -11,16 +11,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class RequestRegisterationController extends Controller
+class RequestRegistrationController extends Controller
 {
     public function create()
     {
-        $branch =  Branch::orderBy('branch_name')->get();
-        $department = Division::whereNotNull('division_name')
+        $branches =  Branch::orderBy('branch_name')->get();
+        $departments = Division::whereNotNull('division_name')
         ->orderBy('division_name')
         ->get();
 
-        return view('auth.registeration-request', compact('branch','department'));
+        return view('auth.registration-request', compact('branches','departments'));
     }
 
     public function store(Request $request)
@@ -47,33 +47,33 @@ class RequestRegisterationController extends Controller
             'email'         =>$request->email,
             'num_phone'     =>$request->num_phone,
             'type'          =>$request->type,
-            'request_status'=>$request->request_status,
+            'request_status'=>'Pending',
             'division_id'   =>$request->type ==='internal' ? $request->division_id:null,
             'branch_id'     =>$request->type ==='internal' ? $request->branch_id:null,
             'remarks'       =>$request->remarks,
         ]);
 
-        return redirect()->route('login')->with('success', 'Permohonan pendaftaran berjaya dihantar');
+        return redirect()->route('login')->with('status', 'Permohonan pendaftaran berjaya dihantar');
     }
 
     public function index(){
-        $request = UserReqRegis::where('request_status', 'Pending')->orderBy('timestamps', 'desc')->get();
+        $requests = UserReqRegis::where('request_status', 'Pending')->orderBy('timestamps','desc')->get();
 
-        return view('user.registration-request', compact('request'));
+        return view('auth.registration-request-list', compact('requests'));
     }
 
     public function approve(Request $request, $id)
     {
         $request->validate(['role_id' => ['required','integer']]);
 
-        $registration = UserReqRegis::findOrFails($id);
+        $registration = UserReqRegis::findOrFail($id);
 
         User::create([
             'username'      =>$registration->username ?? $registration->mykad,
             'full_name'     =>$registration->full_name,
             'mykad'         =>$registration->mykad,
             'email'         =>$registration->email,
-            'num_phone'     =>$registration->num_phone,
+            'phone'         =>$registration->num_phone,
             'branch_id'     =>$registration->branch_id,
             'division_id'   =>$registration->division_id,
             'role_id'       =>$request->role_id,
@@ -89,7 +89,7 @@ class RequestRegisterationController extends Controller
     public function reject( $id)
     {
         $registration = UserReqRegis::findOrFail($id);
-
+ 
         $registration->update(['request_status' => 'Rejected']);
 
         return back()->with('success', 'Permohonan ditolak');

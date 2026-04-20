@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\RequestRegisterationController;
+use App\Http\Controllers\RequestRegistrationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,13 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registeration-request',[RequestRegisterationController::class, 'create'])
-->name('registertaion.request');
+Route::get('/registration-request',[RequestRegistrationController::class, 'create'])
+->name('registration-request.create');
 
- Route::get('registration-request',[RequestRegisterationController::class, 'index'])->name('registration.request.index');
-
-Route::post('/registeration-request',[RequestRegisterationController::class, 'store'])
-->name('registeration-request');
+Route::post('/registration-request',[RequestRegistrationController::class, 'store'])
+->name('registration-request.store');
 
 Route::get('/dashboard', [DashboardController::class, 'index']) 
 ->middleware(['auth'])
@@ -70,13 +68,15 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
 
     Route::get('/setup/branch-department',[SettingController::class, 'index'])->name('setup.branch-department');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('registration-request/list',[RequestRegistrationController::class, 'index'])->name('registration-request.index');
 
-    Route::post('registration-request/{id}/reject',[RegisteredUserController::class, 'reject'])->name('registration.request.reject');
-    Route::post('registration-request/{id}/approve', [RegisteredUserController::class,'approve'])->name('registration.request.approve');
+    Route::post('registration-request/{id}/reject',[RequestRegistrationController::class, 'reject'])->name('registration.request.reject');
+    Route::post('registration-request/{id}/approve', [RequestRegistrationController::class,'approve'])->name('registration.request.approve');
     Route::post('/department', [SettingController::class, 'storeDepartment'])->name('department.store');
     Route::post('/branch', [SettingController::class, 'storeBranch'])->name('branch.store');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');    
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('user.toggle-status');
+
 
     Route::delete('department/{id}', [SettingController::class, 'destroyDepartment'])->name('department.destroy');
     Route::delete('/branch/{id}', [SettingController::class, 'destroyBranch'])->name('branch.destroy');
