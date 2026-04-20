@@ -49,7 +49,7 @@
         </div>
 
         <div class="mt-6 text-center">
-            <a href="{{route('registration-request.index')}}" 
+            <a href="{{route('registration-request.create')}}" 
             class="inline-block w-full rounded-xl bg-blue-300 py-4 text-center font-semibold text-black shadow-md hover:bg-blue-400">
         Permohonan daftar Pengguna</a>
         </div>

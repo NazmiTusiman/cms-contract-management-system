@@ -37,9 +37,9 @@
 
             <div class="mt-4">
                 <x-input-label :value="__('Jenis Pengguna')"/>
-                <select name="type" x-model="type" class="block mt-1 w-full-rounded-md border-gray-300" required>
-                    <option value="internal">Internal User</option>
-                    <option value="external">External User</option>
+                <select name="type" x-model="type" class="block mt-1 w-full rounded-md border-gray-300">
+                    <option value="internal">Internal </option>
+                    <option value="external">External </option>
                 </select>
                 <x-input-error :messages="$errors->get('type')" class="mt-2"/>
             </div>
@@ -72,7 +72,7 @@
                         </option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$error->get('divison_id')" class="mt-2"/>
+                <x-input-error :messages="$errors->get('divison_id')" class="mt-2"/>
             </div>
 
             <div>
