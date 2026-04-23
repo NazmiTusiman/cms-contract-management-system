@@ -16,7 +16,7 @@ class RequestRegistrationController extends Controller
     public function create()
     {
         $branches =  Branch::orderBy('branch_name')->get();
-        $departments = Division::whereNotNull('division_name')
+        $departments = Division::whereNotNull('division_code')
         ->orderBy('division_name')
         ->get();
 

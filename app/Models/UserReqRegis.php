@@ -9,6 +9,8 @@ class UserReqRegis extends Model
     protected $table = 'tbl_reqregis';
     protected $primaryKey = 'reqregis_id';
 
+    
+
     protected $fillable = [
         'full_name',
         'username',

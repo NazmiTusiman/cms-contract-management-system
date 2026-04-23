@@ -1,13 +1,13 @@
 <x-guest-layout>
-    <div x-data="{type: '{{old('type', 'internal')}}', selectedBranch:''}">
-        <h2 class="mb-6 text-2xl font-semibold text-center">Permohonan Daftar Pengguna</h2>
+    <div x-data="{ type: '{{ old('type', 'internal') }}', selectedBranch:''}">
+         <h2 class="mb-6 text-2xl font-semibold text-center">Permohonan Daftar Pengguna</h2>
 
         <form method="POST" action="{{route('registration-request.store')}}" class="space-y-4">
             @csrf
 
             <div>
                 <x-input-label for="full_name" :value="__('Nama Penuh')"/>
-                <x-text-input type="text" name="full_name" id="full_name" class="block mt-1 w-full" :value="old('full_name')"required/>
+                <x-text-input type="text" name="full_name" id="full_name" class="block mt-1 w-full" :value="old('full_name')" required/>
                 <x-input-error :messages="$errors->get('full_name')" class="mt-2"/>
             </div>
 
@@ -49,9 +49,8 @@
             <div x-show="type === 'internal'" x-cloak>
                 <div class="mt-4">
                     <x-input-label :value="__('Cawangan')"/>
-                    <select name="branch_id"
-                        @change="@selectedBranch = $event.target.options[$event.target.selectedIndex].dataset.name"
-                        class="block mt-1 w-full-rounded-md border-gray-500">
+                    <select name="branch_id" @change="selectedBranch = $event.target.options[$event.target.selectedIndex].dataset.name"
+                        class="block mt-1 w-full rounded-md border-gray-500" require>
                         <option value="">Pilih Cawangan</option>
                         @foreach ($branches as $b)
                             <option value="{{ $b->branch_id }}" data-name="{{$b->branch_name}}">
@@ -59,12 +58,13 @@
                             </option>
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('branch_id')" class="mt-2"/>                </div>
+                    <x-input-error :messages="$errors->get('branch_id')" class="mt-2"/>               
+                </div>
             </div>
 
             <div class="mt-4" x-show="selectedBranch === 'JABATAN INSOLVENSI IBU PEJABAT'" x-cloak>
                 <x-input-label :value="__('Bahagian')"/>
-                <select name="divsion_id" class="block mt-1 w-full rounded-md border-gray-300" >
+                <select name="division_id" class="block mt-1 w-full rounded-md border-gray-300" >
                     <option value="">Pilih Bahagian</option>
                     @foreach ($departments as $d)
                         <option value="{{$d->division_id}}">
@@ -72,7 +72,7 @@
                         </option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('divison_id')" class="mt-2"/>
+                <x-input-error :messages="$errors->get('division_id')" class="mt-2"/>
             </div>
 
             <div>
