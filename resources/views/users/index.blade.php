@@ -229,7 +229,7 @@
 
     <div class="mt-8 flex flex-col items-center gap-4">
         <div class="flex gap-4 w-full max-w-2xl">
-            <a href="route('registration-request.index')" class="flex-1 bg-blue-200 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
+            <a href="{{route('registration-request.index')}}" class="flex-1 bg-blue-200 hover:bg-blue-500 text-black font-semibold py-4 rounded-xl text-center shadow-md">
                 Permohonan Daftar Pengguna
             </a>
 

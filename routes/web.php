@@ -70,8 +70,8 @@ Route::middleware(['auth', 'role:superadmin'])->group(function() {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('registration-request/list',[RequestRegistrationController::class, 'index'])->name('registration-request.index');
 
-    Route::post('registration-request/{id}/reject',[RequestRegistrationController::class, 'reject'])->name('registration.request.reject');
-    Route::post('registration-request/{id}/approve', [RequestRegistrationController::class,'approve'])->name('registration.request.approve');
+    Route::post('registration-request/{id}/reject',[RequestRegistrationController::class, 'reject'])->name('registration-request.reject');
+    Route::post('registration-request/{id}/approve', [RequestRegistrationController::class,'approve'])->name('registration-request.approve');
     Route::post('/department', [SettingController::class, 'storeDepartment'])->name('department.store');
     Route::post('/branch', [SettingController::class, 'storeBranch'])->name('branch.store');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');    

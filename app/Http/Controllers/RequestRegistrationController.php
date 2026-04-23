@@ -20,7 +20,7 @@ class RequestRegistrationController extends Controller
         ->orderBy('division_name')
         ->get();
 
-        return view('auth.registration-request', compact('branches','departments'));
+        return view('auth.registration-request-list', compact('branches','departments'));
     }
 
     public function store(Request $request)
@@ -59,7 +59,7 @@ class RequestRegistrationController extends Controller
     public function index(){
         $requests = UserReqRegis::where('request_status', 'Pending')->orderBy('timestamps','desc')->get();
 
-        return view('auth.registration-request-list', compact('requests'));
+        return view('users.registration-request-list', compact('requests'));
     }
 
     public function approve(Request $request, $id)
