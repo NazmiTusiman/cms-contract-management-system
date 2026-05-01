@@ -20,7 +20,7 @@ class RequestRegistrationController extends Controller
         ->orderBy('division_name')
         ->get();
 
-        return view('auth.registration-request-list', compact('branches','departments'));
+        return view('auth.registration-request', compact('branches','departments'));
     }
 
     public function store(Request $request)

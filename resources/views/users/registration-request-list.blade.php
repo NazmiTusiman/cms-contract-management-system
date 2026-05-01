@@ -46,18 +46,18 @@
                 </template>
 
                 <div class="mt-4">
-                    <form method="POST" action="'/registration-request/' + selected.request_id + '/approve'">
+                    <form method="POST" :action="'/registration-request/' + selected.reqreqgis_id + '/approve'">
                     @csrf
 
                     <label class="text-sm">Assign Role</label>
-                    <select name="role_id" class="w-full border-rounded px-3 py-2">
+                    <select name="role_id" class="w-full border rounded px-3 py-2">
                         <option value="1">Super Admin</option>
                         <option value="2"> Admin </option>
                         <option value="3"> User </option>
                     </select>
 
                     <div class="flex justify-end gap-2 mt-4">
-                        <button type="button" @click="open=false" class="px-3 py-2 border-rounded">
+                        <button type="button" @click="open=false" class="px-3 py-2 border rounded">
                             Tutup
                         </button>
 
@@ -67,7 +67,7 @@
                     </div>
                     </form>
 
-                    <form method="POST" action="'/registration-request/' + selected.request_id + '/reject' " class="mt-2">
+                    <form method="POST" :action="'/registration-request/' + selected.reqregis_id + '/reject' " class="mt-2">
                     @csrf
 
                     <button type="submit" class="w-full px-3 py-2 bg-red-500 text-white rounded">
